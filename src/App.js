@@ -9,7 +9,10 @@ export default function App() {
 
   async function searchBooks(e) {
     e && e.preventDefault();
-    if (!query.trim()) return;
+    if (!query.trim()) {
+      alert("Please enter a book title before searching.");
+      return;
+    }
     setLoading(true);
     setError(null);
     setBooks([]);
@@ -32,6 +35,9 @@ export default function App() {
         cover_i: doc.cover_i,
         edition_count: doc.edition_count,
       }));
+      if(results.length===0){
+        alert("No books found. Please try another title.")
+      }
       setBooks(results.slice(0, 40));
     } catch (err) {
       setError(err.message || "Unknown error");
